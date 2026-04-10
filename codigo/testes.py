@@ -1,6 +1,5 @@
-import os
 from time import sleep
-from functions import fala,capture_audio,normalizar,escutar
+from GHOST.codigo.functions import fala, escutar
 import subprocess
 
 

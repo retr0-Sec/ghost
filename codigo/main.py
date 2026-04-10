@@ -1,4 +1,4 @@
-from functions import *
+from GHOST.codigo.functions import *
 Saudacao()
 comandos = {
     "ghost": {
