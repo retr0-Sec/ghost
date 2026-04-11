@@ -2,7 +2,7 @@ from GHOST.codigo.functions import *
 Saudacao()
 comandos = {
     "ghost": {
-        "palavras": ["ghost","gosti","ghoste","goste","gouste","oste"],
+        "palavras": ["fala","mano","gosti","ghoste","goste","gousti","oste"],
         "funcao": ghost
     },
     "horas": {
@@ -26,7 +26,7 @@ comandos = {
         "funcao":quem_sou
     },
     "desligar":{
-        "palavras":["desligar"],
+        "palavras":["desligar","desliga"],
         "funcao": desligar
     }
 }

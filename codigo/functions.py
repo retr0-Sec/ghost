@@ -4,9 +4,14 @@ import numpy as np # mais low level para converter bytes
 import datetime
 import subprocess
 from time import sleep
+import os
 
+BASE_DIR = os.path.dirname(__file__)
 
-voice = PiperVoice.load("pt_BR-cadu-medium.onnx")
+MODEL_PATH = os.path.join(BASE_DIR, "pt_BR-cadu-medium.onnx")
+
+voice = PiperVoice.load(MODEL_PATH)
+
 micro = recon.Recognizer()
 
 
@@ -62,7 +67,7 @@ def Saudacao():
     if 6 <= horario < 12:
         print("Bom dia retr0, seja bem vindo!")
         fala('Bom dia retrô, Como voce ta?, acordou cedo hoje ')
-    if 12 <= horario < 18:
+    elif 12 <= horario < 18:
         print("Boa tarde retr0, Como voce está?")
         fala("Boa tarde retrô, como se tá mano?, Vamos fazer o que hoje?")
     else:
@@ -139,7 +144,7 @@ def desligar():
         fala("Cancelando desligamento.")
         return
 
-    if escolha in ["sim", "s", "claro", "pode", "ok","desligar"]:
+    if escolha in ["sim", "s", "claro", "pode", "ok","desligar","pode desligar","confirmo","comfirmo"]:
         fala("Beleza, desligando em 3 segundos")
         sleep(3)
         subprocess.run(["systemctl", "poweroff"])
