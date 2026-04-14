@@ -1,9 +1,9 @@
 from GHOST.codigo.functions import *
 Saudacao()
 comandos = {
-    "ghost": {
-        "palavras": ["fala","mano","gosti","ghoste","goste","gousti","oste"],
-        "funcao": ghost
+    "nex": {
+        "palavras": ["nex","nexi","nexes","néquisis","ness","nexus"],
+        "funcao": Nex
     },
     "horas": {
         "palavras": ["hora","horas","horario"],
@@ -28,6 +28,18 @@ comandos = {
     "desligar":{
         "palavras":["desligar","desliga"],
         "funcao": desligar
+    },
+    "terminal":{
+        "palavras":["terminal","terminau","termi"],
+        "funcao": terminal
+    },
+    "processos":{
+        "palavras":["processo","processos"],
+        "funcao": processos
+    },
+    "estudos":{
+        "palavras":["estudo","estudos"],
+        "funcao": estudos
     }
 }
 while True:

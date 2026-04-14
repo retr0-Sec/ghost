@@ -14,7 +14,7 @@ voice = PiperVoice.load(MODEL_PATH)
 
 micro = recon.Recognizer()
 
-
+# captura de audio
 def escutar(max_tentativas=3):
     for _ in range(max_tentativas):
         comando = normalizar(capture_audio())
@@ -27,22 +27,6 @@ def escutar(max_tentativas=3):
     fala("Não consegui ouvir você.")
     return None
 
-def normalizar(texto):
-    if not texto:
-        return None
-    return texto.lower().strip()
-# converte o texto para fala
-def fala(texto):
-    som = subprocess.Popen(["aplay", "-f", "S16_LE", "-r", "22050", "-c", "1"], stdin=subprocess.PIPE)
-    for pedaco in voice.synthesize(texto):
-        # converte float → int16 → bytes
-        audio = (pedaco.audio_float_array * 32767).astype(np.int16)
-        som.stdin.write(audio.tobytes())
-
-    som.stdin.close()
-    som.wait()
-
-# captura de audio
 def capture_audio():
     # inicia a escuta
 
@@ -62,6 +46,21 @@ def capture_audio():
             print(f"Erro interno {e}")
             return None
 
+def normalizar(texto):
+    if not texto:
+        return None
+    return texto.lower().strip().lstrip(".")
+# converte o texto para fala
+def fala(texto):
+    som = subprocess.Popen(["aplay", "-f", "S16_LE", "-r", "22050", "-c", "1"], stdin=subprocess.PIPE)
+    for pedaco in voice.synthesize(texto):
+        # converte float → int16 → bytes
+        audio = (pedaco.audio_float_array * 32767).astype(np.int16)
+        som.stdin.write(audio.tobytes())
+
+    som.stdin.close()
+    som.wait()
+
 def Saudacao():
     horario = datetime.datetime.now().hour
     if 6 <= horario < 12:
@@ -69,23 +68,23 @@ def Saudacao():
         fala('Bom dia retrô, Como voce ta?, acordou cedo hoje ')
     elif 12 <= horario < 18:
         print("Boa tarde retr0, Como voce está?")
-        fala("Boa tarde retrô, como se tá mano?, Vamos fazer o que hoje?")
+        fala("Boa tarde retrô, como voce tá?, Vamos fazer o que hoje?")
     else:
         print("Boa noite retr0, como ce ta?")
-        fala("Boa noite retrô, como voçê tá mano?, no que te ajudo hoje?")
+        fala("Boa noite retrô, como voçê está?, no que te ajudo hoje?")
 
 def resposta_desconhecida(comando):
     print("Não conheço esse comando ou instrução")
-    fala("Mano não conheço esse comando, veja se voçê falou certo, ou se não adiciona no meu script fechou")
+    fala("Não reconheço este comando, veja se voçê falou certo, ou se não adiciona no meu script...")
 
-def ghost():
-    print("Sou a ouvidos mano..")
-    fala("Fala mano, o que voçê manda..")
+def Nex():
+    print("Sou a ouvido...")
+    fala("Estou lhe ouvindo, o que voçê manda..")
 
 def Horas():
     data = datetime.datetime.now().strftime("%H:%M")
     print(f"Agora são {data}")
-    fala(f"Agora são {data} meu mano")
+    fala(f"Agora são {data} !")
 
 def data():
     meses = [
@@ -97,15 +96,15 @@ def data():
     mes = meses[atual.month - 1]
     dia = atual.day
     print(f"Hoje é {dia} do {mes} de {ano}")
-    fala(f"Mano hoje é dia {dia} de {mes} de {ano}")
+    fala(f"hoje é dia {dia} de {mes} de {ano}")
 
 def abrirYoutube():
-    fala("Beleza agora me fala, o que voçê quer pesquisar no youtube?")
+    fala("Claro,Me fale, o que voçê voce deseja pesquisar no youtube?")
     query = escutar()
     if not query:
         return
 
-    fala("Entendi mano.")
+    fala("Entendi Senhor.")
     subprocess.Popen(["brave-browser",f"https://youtube.com/results?search_query={query.replace('','+')}"])
 
 def Pesquisa():
@@ -115,7 +114,7 @@ def Pesquisa():
 
             if comando:
                 if "não" in comando:
-                    fala("Beleza voltando")
+                    fala("Entendido voltando")
                     return
                 return comando.lower().strip()
 
@@ -125,16 +124,16 @@ def Pesquisa():
         fala("Não consegui ouvir você.")
         return None
 
-    fala("Beleza só falar, o que voçê quer pesquisar?")
+    fala("Claro, só me diga, o que voçê quer pesquisar?")
     query = escutar()
     if not query:
         return
 
-    fala("Entendi mano.")
+    fala("Entendido retrõ.")
     subprocess.Popen(["brave-browser", f"https://www.google.com/search?q={query.replace('', '+')}"])
 
 def quem_sou():
-    fala("Voce sabe né? fui desenvolvido pelo Kauan ou retrô, ele me fez com código puro para que eu consiga controlar todo o sistema, ainda estou melhorando, mas é isso né")
+    fala("Bom, me chamo Nex, fui criado pelo retrô com código puro, sem Inteligencia Artificial. Fui criado para ter controle total do sistema, e executar ações a partir das ordens me passada. Ainda sou um protótipo, mas estou em desenvolvimento.")
 
 def desligar():
     fala("Confirma desligamento do sistema? ")
@@ -145,6 +144,24 @@ def desligar():
         return
 
     if escolha in ["sim", "s", "claro", "pode", "ok","desligar","pode desligar","confirmo","comfirmo"]:
-        fala("Beleza, desligando em 3 segundos")
+        fala("Entendido, desligando em 3 segundos")
         sleep(3)
         subprocess.run(["systemctl", "poweroff"])
+
+def terminal():
+    print("Abrindo Terminal....")
+    fala("Entendido, abrindo Terminal")
+    subprocess.Popen("konsole")
+
+def processos():
+    fala("Claro, mostrarei os processos do seu sistema agora")
+    subprocess.Popen(["konsole", "-e", "htop"])
+
+def estudos():
+    print("ATIVANDO MODO ESTUDOS!")
+    fala("Entendido, ativando o modo estudo agora !")
+    subprocess.Popen(["brave-browser",f"https://youtube.com/results?search_query=blues"])
+    sleep(2)
+    subprocess.Popen(["brave-browser", 'https://app.hackingclub.com/dashboard'])
+    sleep(2)
+    subprocess.Popen("konsole")
