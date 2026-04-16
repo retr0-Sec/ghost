@@ -12,7 +12,8 @@ dependencies = [
     "numpy (>=2.4.4,<3.0.0)",
     "speechrecognition (>=3.16.0,<4.0.0)",
     "pyaudio (>=0.2.14,<0.3.0)",
-    "piper-tts (>=1.4.2,<2.0.0)"
+    "piper-tts (>=1.4.2,<2.0.0)",
+    "psutil (>=7.2.2,<8.0.0)"
 ]
 
 
