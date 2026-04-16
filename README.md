@@ -31,7 +31,7 @@ O objetivo é criar uma base extensível para:
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/retr0-Sec/ghost.git
+git clone https://github.com/retr0-Sec/Nex.git
 cd GHOST
 ```
 ### 2 Instale o poetry (Caso não tenha)
@@ -51,10 +51,15 @@ python3 main.py
 * 💻 Execução de comandos no sistema
 * ⏰ Automação baseada em tempo
 * 🔧 Integração com subprocessos
+* 🔧 Modo Ativo/Passivo
+* 🔧 Monitoramento do Sistema
+
+
 
 ## OBSERVAÇÕES
+* O poetry precisa de ativação do seu ambiente para conseguir instalar as dependencias e usar. consulte como ativar em https://python-poetry.org/docs/managing-environments/#activating-the-environment
 
-Este projeto é apenas para fins educacionais. Estou aberto a criticas construtivas e melhorias para o codigo.
+ * Este projeto é apenas para fins educacionais. Estou aberto a criticas construtivas e melhorias para o codigo.
 se precisar entre em contato através do meu linkedln no perfil.
 
 ## ⚠️ AVISO
